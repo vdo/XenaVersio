@@ -25,6 +25,7 @@ public:
 
     void Init(float sampleRate);
     void Reset();
+    void Sync();  // Hard sync - reset phase without reinitializing breakpoints
     float Process();
 
     // Parameter setters

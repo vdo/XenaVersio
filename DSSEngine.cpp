@@ -48,6 +48,15 @@ void DSSEngine::Reset()
     SetFrequency(frequency_);
 }
 
+void DSSEngine::Sync()
+{
+    // Hard sync: reset phase to start of waveform, trigger walk update
+    phase_ = 0.0f;
+    currentSegment_ = 0;
+    segmentPhase_ = 0.0f;
+    UpdateWalks();
+}
+
 void DSSEngine::SetFrequency(float freq)
 {
     frequency_ = freq;

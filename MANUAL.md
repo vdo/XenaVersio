@@ -56,15 +56,28 @@ The V/Oct input (Knob 0) tracks approximately 5 octaves from the selected base f
 
 ## Inputs & Outputs
 
+### Audio Inputs
+
+- **IN L** — Hard Sync input. Rising zero-crossings reset the DSS waveform phase, syncing it to an external oscillator. Creates classic sync timbres with the stochastic character of DSS.
+- **IN R** — Ring Modulation input. The DSS output is multiplied by this signal. When unpatched, outputs dry signal. When patched, creates sidebands and metallic tones.
+
 ### Audio Outputs
 
-- **OUT L** — Main mono output
-- **OUT R** — Copy of mono output with random bias for optional stereo width
+- **OUT L** — Dry DSS output
+- **OUT R** — Ring modulated output (DSS × IN R)
 
 ### CV Inputs
 
-- **FSU / CV** — Gate input for external reset trigger (directly tied to audio input, directly usable)
-- **Knob 0** — V/Oct pitch CV input (active when patched, adds to knob position)
+Each knob has a CV input jack that sums with the knob position (0-5V range).
+
+- **Knob 0 CV** — V/Oct pitch input (calibrated)
+- **Knob 1 CV** — Duration Step modulation
+- **Knob 2 CV** — Amplitude Step modulation
+- **Knob 3 CV** — Duration Barrier modulation
+- **Knob 4 CV** — Amplitude Barrier modulation
+- **Knob 5 CV** — Breakpoints modulation
+- **Knob 6 CV** — Output Level modulation
+- **FSU** — Gate input for external reset trigger. Rising edge resets all breakpoints.
 
 ---
 
@@ -180,7 +193,7 @@ When a parameter's random walk reaches a barrier, it reflects back like a ball b
 | Breakpoint Range | 2–16 |
 | Frequency Range | ~65 Hz – 33 kHz |
 | V/Oct Tracking | ~5 octaves |
-| Audio Output | Mono (OUT R adds random bias for optional stereo width) |
+| Audio Output | Stereo (L=dry, R=ring mod) |
 
 ---
 

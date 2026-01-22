@@ -10,6 +10,12 @@ DSSEngine dss;
 float sampleRate;
 float outputLevel = 0.8f;
 
+// Gate state for edge detection
+bool prevGate = false;
+
+// Hard sync zero-crossing detection
+float prevSyncIn = 0.0f;
+
 // Simple LCG for stereo width randomness
 uint32_t randState = 12345;
 inline float fastRand() {
@@ -61,10 +67,23 @@ static void AudioCallback(AudioHandle::InputBuffer in,
                           size_t size)
 {
     for (size_t i = 0; i < size; ++i) {
+        float syncIn = IN_L[i];
+        float ringIn = IN_R[i];
+
+        // Hard sync: detect rising zero-crossing on IN_L
+        if (prevSyncIn <= 0.0f && syncIn > 0.0f) {
+            dss.Sync();
+        }
+        prevSyncIn = syncIn;
+
+        // Generate DSS sample
         float sample = dss.Process() * outputLevel;
 
-        OUT_L[i] = sample;
-        OUT_R[i] = sample + fastRand() * 0.02f; // Small random bias for stereo width
+        // Ring modulation: multiply by IN_R (when patched, otherwise ringIn ≈ 0)
+        float ringOut = sample * (1.0f + ringIn);  // Blend: dry when no input, ring mod when patched
+
+        OUT_L[i] = sample;           // Dry output
+        OUT_R[i] = ringOut;          // Ring mod output
     }
 }
 
@@ -236,13 +255,13 @@ int main(void)
         float freq = GetVoctFrequency(baseFreq);
         dss.SetFrequency(freq);
 
-        // KNOB_1: Duration step (0.001 - 0.5)
+        // KNOB_1: Duration step (0.001 - 0.5) - CV via knob jack
         float durationStep = hw.GetKnobValue(DaisyVersio::KNOB_1);
         durationStep = 0.001f + durationStep * 0.499f;
         dss.SetDurationStep(durationStep);
         ledDuration = hw.GetKnobValue(DaisyVersio::KNOB_1);
 
-        // KNOB_2: Amplitude step (0.001 - 0.5)
+        // KNOB_2: Amplitude step (0.001 - 0.5) - CV via knob jack
         float amplitudeStep = hw.GetKnobValue(DaisyVersio::KNOB_2);
         amplitudeStep = 0.001f + amplitudeStep * 0.499f;
         dss.SetAmplitudeStep(amplitudeStep);
@@ -266,10 +285,12 @@ int main(void)
         // KNOB_6: Output level
         outputLevel = hw.GetKnobValue(DaisyVersio::KNOB_6);
 
-        // Button: Reset walks
-        if (hw.tap.RisingEdge()) {
+        // Button or Gate: Reset walks
+        bool gate = hw.Gate();
+        if (hw.tap.RisingEdge() || (gate && !prevGate)) {
             dss.Reset();
         }
+        prevGate = gate;
 
         // Update LEDs
         if (!inCalibration) {

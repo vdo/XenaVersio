@@ -9,9 +9,11 @@ Based on the DSS algorithm developed by composer Iannis Xenakis, XenaVersio gene
 - 2–16 configurable breakpoints
 - First-order, second-order (GENDY3), and correlated walk modes
 - Three frequency ranges (LFO to audio rate)
-- V/Oct tracking with calibration
+- Hard sync via left audio input
+- Ring modulation via right audio input
+- V/Oct tracking with calibration (C-based frequencies for Eurorack standard)
 - Full CV control over all parameters
-- Stereo output with subtle random bias for width
+- Stereo output (dry left, ring mod right)
 
 ## Documentation
 
