@@ -42,9 +42,9 @@ The result is an oscillator that can range from nearly static tones to wildly an
 
 | Position | Base Frequency | Range |
 |----------|----------------|-------|
-| **LEFT** | 55 Hz (A1) | Bass/sub range |
-| **CENTER** | 220 Hz (A3) | Mid range |
-| **RIGHT** | 880 Hz (A5) | High range |
+| **LEFT** | 65.41 Hz (C2) | Bass/sub range |
+| **CENTER** | 261.63 Hz (C4) | Mid range (middle C) |
+| **RIGHT** | 1046.50 Hz (C6) | High range |
 
 The V/Oct input (Knob 0) tracks approximately 5 octaves from the selected base frequency.
 
@@ -58,8 +58,8 @@ The V/Oct input (Knob 0) tracks approximately 5 octaves from the selected base f
 
 ### Audio Outputs
 
-- **OUT L** — Main audio output
-- **OUT R** — Main audio output with subtle random bias for stereo width
+- **OUT L** — Main mono output
+- **OUT R** — Copy of mono output with random bias for optional stereo width
 
 ### CV Inputs
 
@@ -178,9 +178,9 @@ When a parameter's random walk reaches a barrier, it reflects back like a ball b
 |-----------|-------|
 | Sample Rate | 48 kHz |
 | Breakpoint Range | 2–16 |
-| Frequency Range | ~55 Hz – 7 kHz |
+| Frequency Range | ~65 Hz – 33 kHz |
 | V/Oct Tracking | ~5 octaves |
-| Audio Output | Stereo (subtle width via random bias) |
+| Audio Output | Mono (OUT R adds random bias for optional stereo width) |
 
 ---
 

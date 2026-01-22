@@ -25,10 +25,10 @@ uint16_t calibrationOffset = 64262;
 uint16_t calibrationUnitsPerVolt = 12826;
 const uint16_t CALIBRATION_THRESH = CALIBRATION_MAX - 200;
 
-// Base frequencies for each range
-const float BASE_FREQ_LOW = 55.0f;    // A1
-const float BASE_FREQ_MID = 220.0f;   // A3
-const float BASE_FREQ_HIGH = 880.0f;  // A5
+// Base frequencies for each range (C-based for Eurorack standard)
+const float BASE_FREQ_LOW = 65.41f;   // C2
+const float BASE_FREQ_MID = 261.63f;  // C4 (middle C)
+const float BASE_FREQ_HIGH = 1046.50f; // C6
 
 // Persistence
 struct Settings {
