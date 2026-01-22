@@ -11,6 +11,7 @@ Based on the DSS algorithm developed by composer Iannis Xenakis, XenaVersio gene
 - Three frequency ranges (LFO to audio rate)
 - V/Oct tracking with calibration
 - Full CV control over all parameters
+- Stereo output with subtle random bias for width
 
 ## Documentation
 

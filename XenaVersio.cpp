@@ -10,6 +10,13 @@ DSSEngine dss;
 float sampleRate;
 float outputLevel = 0.8f;
 
+// Simple LCG for stereo width randomness
+uint32_t randState = 12345;
+inline float fastRand() {
+    randState = randState * 1664525 + 1013904223;
+    return (randState >> 16) / 32768.0f - 1.0f; // -1 to 1
+}
+
 // Calibration
 bool inCalibration = false;
 const int CALIBRATION_MAX = 65536;
@@ -57,7 +64,7 @@ static void AudioCallback(AudioHandle::InputBuffer in,
         float sample = dss.Process() * outputLevel;
 
         OUT_L[i] = sample;
-        OUT_R[i] = sample;
+        OUT_R[i] = sample + fastRand() * 0.02f; // Small random bias for stereo width
     }
 }
 

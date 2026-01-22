@@ -59,7 +59,7 @@ The V/Oct input (Knob 0) tracks approximately 5 octaves from the selected base f
 ### Audio Outputs
 
 - **OUT L** — Main audio output
-- **OUT R** — Main audio output (identical signal)
+- **OUT R** — Main audio output with subtle random bias for stereo width
 
 ### CV Inputs
 
@@ -180,7 +180,7 @@ When a parameter's random walk reaches a barrier, it reflects back like a ball b
 | Breakpoint Range | 2–16 |
 | Frequency Range | ~55 Hz – 7 kHz |
 | V/Oct Tracking | ~5 octaves |
-| Audio Output | Mono (mirrored to stereo) |
+| Audio Output | Stereo (subtle width via random bias) |
 
 ---
 
